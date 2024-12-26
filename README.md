@@ -29,6 +29,46 @@
 
 ## Running Container Locally
 
+### Representation
+```sql
+              +---------------------+
+              |  frontend Container |
+              |---------------------|
+              |  Runs Vite on port  |
+              |  3000 inside the    |
+              |  container          |
+              |---------------------|
+              |  Connects to        |
+              |  backend:8000       |
+              |  via app-network    |
+              +---------------------+
+                         |
+           Communicates over `app-network`
+                         v
+              +---------------------+
+              |  backend Container  |
+              |---------------------|
+              |  Runs Express.js on |
+              |  port 8000 inside   |
+              |  the container      |
+              |---------------------|
+              |  Connects to        |
+              |  MongoDB via        |
+              |  MONGO_URL (network)|
+              +---------------------+
+                        |
+          Communicates over `app-network`
+                        v
+              +---------------------+
+              |    MongoDB Server   |
+              |  (External service) |
+              |---------------------|
+              |  Accessed using     |
+              |  a connection URL   |
+              +---------------------+
+
+```
+
 ### Start Docker Engine
 
 1. In docker-compose.yml provide the MONGO_URL
@@ -44,50 +84,17 @@
    docker compose up --build
    ```
 
-### Representation
-```sql
-            +------------------+
-            |    User Browser  |
-            |------------------|
-            |  Accesses via    |
-            |  localhost:3000  |
-            +------------------+
-                     |
-                     v
-         +----------------------+
-         |      frontend        |
-         |----------------------|
-         |  Runs on port 3000   |
-         |  Built with Node.js  |
-         |  Uses Vite for dev   |
-         +----------------------+
-                     |
-            depends_on backend
-                     v
-         +----------------------+
-         |      backend         |
-         |----------------------|
-         |  Runs on port 8000   |
-         |  Built with Node.js  |
-         |  Exposes API         |
-         |  Uses CORS for       |
-         |  cross-origin access |
-         +----------------------+
-                     |
-                     v
-         +----------------------+
-         |       MongoDB        |
-         |----------------------|
-         | (Environment defined)|
-         | Backend connects via |
-         |  MONGO_URL           |
-         +----------------------+
-
-```
 ### Notes
-- **`frontend`** depends on the `backend` service to be available.
-- Both containers are part of the `app-network` bridge network for communication.
-- Ports `3000` and `8000` are exposed on the host for development.
-- **`volumes`** are used for live updates during development:
-  - `./backend:/app` syncs backend code.
-  - `./frontend:/app` syncs frontend code.
+- **`frontend` container**:
+  - Built from `frontend/Dockerfile`.
+  - Port `3000` inside the container maps to `localhost:3000` on the host.
+  - Depends on the `backend` service.
+
+- **`backend` container**:
+  - Built from `backend/Dockerfile`.
+  - Port `8000` inside the container maps to `localhost:8000` on the host.
+  - CORS configured to allow `frontend` service communication.
+
+- Both containers use `app-network` for internal communication (via service names like `backend` or `frontend`).
+
+- MongoDB is external (could also be another container if specified). Accessed via `MONGO_URL` defined in the environment.
