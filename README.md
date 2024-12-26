@@ -1,6 +1,4 @@
-# ExpenseTracker - Getting Started
-
-### Setting Up & Running Locally
+## ExpenseTracker - Getting Started
 
 1. Clone the repository from GitHub:
 
@@ -27,7 +25,7 @@
    /frontend > npm run dev
    ```
 
-## Running Container Locally
+## Running Docker Containers
 
 ### Representation
 ```sql
