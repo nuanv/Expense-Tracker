@@ -41,15 +41,17 @@
 ### Start Docker Engine
 
 1. In docker-compose.yml provide the MONGO_URL
-```yml
-    environment:
-      - MONGO_URL=
-```
+
+   ```yml
+       environment:
+         - MONGO_URL=
+   ```
 
 2. Run docker compose
-```sh
-docker compose up --build
-```
+
+   ```sh
+   docker compose up --build
+   ```
 
 ### Representation
 ```sql
@@ -69,7 +71,7 @@ docker compose up --build
          |  Uses Vite for dev   |
          +----------------------+
                      |
-          depends_on backend
+            depends_on backend
                      v
          +----------------------+
          |      backend         |
