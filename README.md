@@ -1,13 +1,4 @@
-# ExpenseTracker
-<div align="center">
-<div>
-<img src="assets/Expenses.png" width="100%" />
-</div>
-</div>
-
-<br>
-
-## Getting Started
+# ExpenseTracker - Getting Started
 
 ### Setting Up & Running Locally
 
