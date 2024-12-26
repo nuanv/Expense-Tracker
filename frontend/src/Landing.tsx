@@ -13,20 +13,27 @@ import NavBar from "./NavBar";
 
 export default function Component() {
   const location = useLocation().pathname;
+  
+  // If we're on login or register page, only render the Outlet
+  if (location === "/login" || location === "/register") {
+    return <Outlet />;
+  }
+
+  // For all other routes
   return (
-    <>
-      <div className="fliex flex-col gap-2">
-        {location !== "/" && location !=="/login" && location !=="/register" ? (
-          <div>
-          <NavBar />
+    <div className="flex flex-col gap-2">
+      {location !== "/" ? (
         <div>
-          <Outlet />
-        </div>
+          <NavBar />
+          <div>
+            <Outlet />
+          </div>
         </div>
       ) : (
+        // Landing page content
         <>
-        <Outlet />
-<div className="flex flex-col min-h-screen">
+          <Outlet />
+          <div className="flex flex-col min-h-screen">
             <header className="px-4 lg:px-6 py-4 lg:py-6 flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <img
@@ -139,7 +146,7 @@ export default function Component() {
                 <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6">
                   <div className="space-y-3">
                     <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
-                      Contributors
+                      Created By
                     </h2>
                     <div className="space-x-11">
                       <a
@@ -148,21 +155,14 @@ export default function Component() {
                       >
                         Patel Nihar
                       </a>
-                      <a
-                        className="underline underline-offset-2"
-                        href="https://github.com/punitParmar2033"
-                      >
-                        Parmar Punit
-                      </a>
                     </div>
                   </div>
                 </div>
               </section>
             </main>
           </div>
-          </>
-        )}
-      </div>
-    </>
+        </>
+      )}
+    </div>
   );
 }
