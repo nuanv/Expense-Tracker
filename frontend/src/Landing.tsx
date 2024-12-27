@@ -151,7 +151,7 @@ export default function Component() {
                     <div className="space-x-11">
                       <a
                         className="underline underline-offset-2"
-                        href="https://github.com/nzyrk"
+                        href="https://github.com/nyaio"
                       >
                         Patel Nihar
                       </a>
