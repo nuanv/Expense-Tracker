@@ -3,7 +3,7 @@
 1. Clone the repository from GitHub:
 
    ```sh
-   git clone https://github.com/nyaio/Expense-Tracker.git
+   git clone https://github.com/nimzou/Expense-Tracker.git
    ```
 
 2. To Install the necessary dependencies navigate to backend and frontend directories and run:
